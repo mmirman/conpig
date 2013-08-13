@@ -9,7 +9,7 @@ threads = deque([])
 
 def next(argA, argB):
     global threads
-    
+
     if len(threads) == 0: 
         return
 
@@ -19,6 +19,7 @@ def next(argA, argB):
         return next(argA, argB)
 
     threads.append(t)
+    signal.setitimer(signal.ITIMER_REAL, 0.00001)
     t.switch()
 
 def forkIO(method, *args, **kr):
@@ -29,11 +30,16 @@ def forkIO(method, *args, **kr):
 def runMain(main):
     forkIO(main)
     signal.signal(signal.SIGALRM, next)
-    signal.setitimer(signal.ITIMER_REAL, 0.000001, 0.000002)
-
+    
+    next(None,None)
     while len(threads) > 0:
         # I'm told pause sucks
         time.sleep(4)
+
+
+##################
+##  TESTING IT  ##
+##################
 
 def test(arg):
     for i in range(0,4000):
@@ -44,7 +50,3 @@ def main():
     forkIO(test, "O")
 
 runMain(main)
-
-
-
-    
