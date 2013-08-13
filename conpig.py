@@ -29,8 +29,7 @@ def forkIO(method, *args, **kr):
 def runMain(main):
     forkIO(main)
     signal.signal(signal.SIGALRM, next)
-    signal.setitimer(signal.ITIMER_REAL, 0.000001, 0.000001)
-    next()
+    signal.setitimer(signal.ITIMER_REAL, 0.000001, 0.000002)
 
     while len(threads) > 0:
         # I'm told pause sucks
