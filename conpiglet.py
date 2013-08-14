@@ -1,10 +1,7 @@
 import sys
 
 import gevent
-
 import signal
-from collections import deque
-import time
 
 alive = 0
 
@@ -42,18 +39,17 @@ def spawn_n(function, *args, **kwargs):
 sleep = gevent.sleep
 getcurrent = gevent.getcurrent
 
-def scheduleMain(main):
+def waitAll():
     global alive
-
-    signal.signal(signal.SIGALRM, next)
-    spawn(main)
-
-    next(None,None)
-
     while alive > 0:
         # I'm told pause sucks
-        gevent.sleep(2)
+        try:
+            gevent.sleep(0.1)
+        except:
+            None
 
-
-
-
+##############################
+## initialize the scheduler ##
+##############################
+signal.signal(signal.SIGALRM, next)
+next(None,None)

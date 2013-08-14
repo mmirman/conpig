@@ -5,12 +5,10 @@ import conpiglet
 ##################
 
 def test(arg):
-    for i in range(0,1000):
+    for i in range(0,10):
         print arg
 
-def main():
-    conpiglet.spawn(test, "X")    
-    conpiglet.spawn(test, "O")
+conpiglet.spawn(test, "X")    
+conpiglet.spawn(test, "O")
 
-conpiglet.scheduleMain(main)
-
+conpiglet.waitAll()
