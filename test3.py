@@ -12,5 +12,5 @@ def main():
     conpiglet.spawn(test, "X")    
     conpiglet.spawn(test, "O")
 
-conpiglet.runMain(main)
+conpiglet.scheduleMain(main)
 
