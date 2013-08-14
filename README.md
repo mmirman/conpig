@@ -1,8 +1,9 @@
 Conpig Threading Library
 ========================
 
-Conpig is a green threading library using green threads from [Greenlet](https://pypi.python.org/pypi/greenlet) 
-along side a signal based fair thread scheduler.  
+Conpig is a green threading library using green threads from [Gevent](http://www.gevent.org/intro.html)
+which are based on [greenlets](https://pypi.python.org/pypi/greenlet).
+along side a signal based scheduler.  
 This allows one to bypass cpython's GIL using green threads instead of OS processes or OS threads such that 
 spawning a new thread is still cheap.  Other green thread libraries require you to 
 
@@ -36,30 +37,22 @@ Drawbacks & Limitations
 
 * Conpig threads still can only run on one core of a processor.
 
-Design Principles
------------------
-
-* Despite slowness, uses functional programming techniques for readability.
-
-* Exposes functions of the same name and use case as [Haskell's threading library](http://hackage.haskell.org/packages/archive/base/latest/doc/html/Control-Concurrent.html#v:forkIO).
-
-* Use traditional concurrency primitives: [MVars](http://hackage.haskell.org/packages/archive/base/latest/doc/html/Control-Concurrent-MVar.html), [Channels](http://hackage.haskell.org/packages/archive/base/latest/doc/html/Control-Concurrent-Chan.html#t:Chan), [Semaphores](http://en.wikipedia.org/wiki/Semaphore_(programming)) ...
-
-
 Usage
 -----
 
 * You can run from a main method
 
 ```
+import conpig
+
 def test(arg):
     for i in range(0,4000):
         print arg
 
-def main():
-    forkIO(test, "X")    
-    forkIO(test, "O")
 
-runMain(main)
+conpig.spawn(test, "X")    
+conpig.spawn(test, "O")
+
+conpig.waitAll()
 ```
 

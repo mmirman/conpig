@@ -1,41 +1,64 @@
-import sys
-
-from greenlet import greenlet
+import gevent
 import signal
-from collections import deque
-import time
 
-threads = deque([])
-
+############################
+## the periodic scheduler ##
+############################
 def next(argA, argB):
-    global threads
+    signal.setitimer(signal.ITIMER_REAL, 0.00004)
+    try:
+        gevent.sleep(0)
+    except:
+        None
 
-    if len(threads) == 0: 
-        return
+##############################
+## initialize the scheduler ##
+##############################
+signal.signal(signal.SIGALRM, next)
+next(None,None)
 
-    t = threads.popleft()
+
+#######################
+## library functions ##
+#######################
+alive = 0
+
+def removeOne(g):
+    global alive
+    alive -= 1
+
+def spawn(method, *args, **kr):
+    global alive
+    g = gevent.spawn(method, *args, **kr)
+    alive += 1
+    g.link(removeOne)
+    return g
+
+def spawn_after(seconds, function, *args, **kwargs):
+    global alive
+    g = gevent.spawn_later(seconds, method, *args, **kr)
+    alive += 1
+    g.link(removeOne)
+    return g
+
+def spawn_n(function, *args, **kwargs):
+    global alive
+    g = gevent.spawn_raw(method, *args, **kr)
+    alive += 1
+    g.link(removeOne)
+
+sleep = gevent.sleep
+getcurrent = gevent.getcurrent
+
+def waitAll():
+    """ This is only meant to be run once at the end of the program.  
+        It turns off the scheduler when all threads have halted.
+    """
     
-    if t.dead:
-        return next(argA, argB)
-
-    threads.append(t)
-    signal.setitimer(signal.ITIMER_REAL, 0.00001)
-    t.switch()
-
-def forkIO(method, *args, **kr):
-    def methodp():
-        method(*args,**kr)
-    threads.append(greenlet(methodp))
-
-def runMain(main):
-    forkIO(main)
-    signal.signal(signal.SIGALRM, next)
-    
-    next(None,None)
-    while len(threads) > 0:
-        # I'm told pause sucks
-        time.sleep(4)
-
-
-
-
+    global alive
+    while alive > 0:
+        try:
+            gevent.sleep(0.1)
+        except:
+            None
+    signal.setitimer(signal.ITIMER_REAL, 0)
