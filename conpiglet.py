@@ -3,14 +3,29 @@ import sys
 import gevent
 import signal
 
-alive = 0
 
+
+############################
+## the periodic scheduler ##
+############################
 def next(argA, argB):
     signal.setitimer(signal.ITIMER_REAL, 0.00004)
     try:
         gevent.sleep(0)
     except:
         None
+
+##############################
+## initialize the scheduler ##
+##############################
+signal.signal(signal.SIGALRM, next)
+next(None,None)
+
+
+#######################
+## library functions ##
+#######################
+alive = 0
 
 def removeOne(g):
     global alive
@@ -48,8 +63,4 @@ def waitAll():
         except:
             None
 
-##############################
-## initialize the scheduler ##
-##############################
-signal.signal(signal.SIGALRM, next)
-next(None,None)
+
