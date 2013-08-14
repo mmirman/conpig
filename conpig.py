@@ -54,6 +54,7 @@ getcurrent = gevent.getcurrent
 def waitAll():
     """ This is only meant to be run once at the end of the program.  
         It turns off the scheduler when all threads have halted.
+        If your program runs on an infinite loop, it needs not be run at all.
     """
     global alive
 
