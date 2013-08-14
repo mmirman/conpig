@@ -37,16 +37,5 @@ def runMain(main):
         time.sleep(4)
 
 
-##################
-##  TESTING IT  ##
-##################
 
-def test(arg):
-    for i in range(0,4000):
-        print arg
 
-def main():
-    forkIO(test, "X")    
-    forkIO(test, "O")
-
-runMain(main)
