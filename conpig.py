@@ -1,6 +1,5 @@
 import gevent
 import signal
-import time
 
 alive = 0
 
