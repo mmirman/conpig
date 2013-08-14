@@ -10,7 +10,7 @@ def test(arg):
         print arg
 
 
-conpig.forkIO(test, "X")    
-conpig.forkIO(test, "O")
+conpig.spawn(test, "X")    
+conpig.spawn(test, "O")
 
 conpig.waitAll()
