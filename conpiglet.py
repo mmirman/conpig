@@ -26,14 +26,14 @@ def spawn(method, *args, **kr):
     g.link(removeOne)
     return g
 
-def spawn_after(seconds, function, *args, **kwargs)
+def spawn_after(seconds, function, *args, **kwargs):
     global alive
     g = gevent.spawn_later(seconds, method, *args, **kr)
     alive += 1
     g.link(removeOne)
     return g
 
-def spawn_n(function, *args, **kwargs)
+def spawn_n(function, *args, **kwargs):
     global alive
     g = gevent.spawn_raw(method, *args, **kr)
     alive += 1
