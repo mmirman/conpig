@@ -1,9 +1,5 @@
-import sys
-
 import gevent
 import signal
-
-
 
 ############################
 ## the periodic scheduler ##
@@ -55,6 +51,10 @@ sleep = gevent.sleep
 getcurrent = gevent.getcurrent
 
 def waitAll():
+    """ This is only meant to be run once at the end of the program.  
+        It turns off the scheduler when all threads have halted.
+    """
+    
     global alive
     while alive > 0:
         # I'm told pause sucks
@@ -62,5 +62,4 @@ def waitAll():
             gevent.sleep(0.1)
         except:
             None
-
-
+    signal.setitimer(signal.ITIMER_REAL, 0)

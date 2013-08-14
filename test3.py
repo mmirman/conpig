@@ -5,7 +5,7 @@ import conpiglet
 ##################
 
 def test(arg):
-    for i in range(0,10):
+    for i in range(0,1000):
         print arg
 
 conpiglet.spawn(test, "X")    
