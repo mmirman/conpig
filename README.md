@@ -18,14 +18,12 @@ Have
 
 * OS threads are bulky and slow.  Processes are even worse.
 
-* Current green thread implementations require manual context switches.  This is tedious. This is also bug prone for programmers who are used to having a scheduler.
+* Current green thread implementations require manual context switches. This is tedious. This is also bug prone for programmers who are used to having a scheduler.
 
 * Processes based libraries like [parallel python](http://www.parallelpython.com/) prevent you from communicating between "threads" with the datastructures you'd usually use.  Again, processes are also slow and buggy.
 
 Solution
 --------
-
-* Keep track of green threads in a queue.
 
 * Create a global scheduler using signals to schedule the next context switch.
 
@@ -36,6 +34,9 @@ Drawbacks & Limitations
 
 * Conpig threads still can only run on one core of a processor.
 
+* Context switches still only occur every [CPython tick](http://www.dabeaz.com/python/UnderstandingGIL.pdf).
+
+* You still need cooperative yeilds if you want true fairness for programs that don't do as much IO.
 
 Installing (pip to come)
 ------------------------
