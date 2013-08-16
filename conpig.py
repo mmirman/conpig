@@ -23,7 +23,7 @@ alive = 0
 def next(argA = None, argB = None):
     try:
         if alive > 0:
-            signal.setitimer(signal.ITIMER_REAL, 0.00008)
+            signal.setitimer(signal.ITIMER_REAL, 0.0005)
         else:
             signal.setitimer(signal.ITIMER_REAL, 0)
 
