@@ -36,12 +36,25 @@ Drawbacks & Limitations
 
 * Conpig threads still can only run on one core of a processor.
 
+
+Installing (pip to come)
+------------------------
+
+* Need: [Greenlet](https://pypi.python.org/pypi/greenlet)  & [Gevent](http://www.gevent.org/intro.html).
+
+1. Install [Greenlet](https://pypi.python.org/pypi/greenlet) with pip.
+
+2. Install [Gevent](http://www.gevent.org/intro.html) 
+    - The old version depends on libevent.  The new github version depends on libev
+    - On OSX the install path for libevent is wrong even if you use Mac Ports. 
+    - The easiest install method is to [download v.1 from github](https://github.com/surfly/gevent), and install from source using the provided "setup.py".  
+
 Usage
 -----
 
 * You can run from a main method
 
-```
+```python
 import conpig
 
 def test(arg):
@@ -55,6 +68,8 @@ conpig.spawn(test, "O")
 conpig.waitAll()
 ```
 
-== License
+
+License
+-------
 
 See LICENSE file.
