@@ -36,7 +36,7 @@ Drawbacks & Limitations
 
 * Context switches still only occur every [CPython tick](http://www.dabeaz.com/python/UnderstandingGIL.pdf).
 
-* You still need cooperative yeilds if you want true fairness for programs that don't do as much IO.
+* You still need cooperative yields if you want true fairness for programs that don't do as much IO.
 
 Installing (pip to come)
 ------------------------
