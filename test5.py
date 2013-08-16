@@ -35,4 +35,4 @@ conpig.spawn(test2, "H")
 test2("O")
 
 
-conpig.waitAll()
+conpig.wait_all()

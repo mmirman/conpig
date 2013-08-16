@@ -70,7 +70,7 @@ def spawn_n(method, *args, **kwargs):
 sleep = gevent.sleep
 getcurrent = gevent.getcurrent
 
-def waitAll():
+def wait_all():
     """ This is only meant to be run once at the end of the program.  
         It turns off the scheduler when all threads have halted.
         If your program runs on an infinite loop, it needs not be run at all.

@@ -26,4 +26,4 @@ def test(arg,ti):
 conpig.spawn(test, "X", 1)    
 conpig.spawn(test, "O", 2)
 
-conpig.waitAll()
+conpig.wait_all()
