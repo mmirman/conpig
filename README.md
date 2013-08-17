@@ -4,7 +4,7 @@ Conpig Threading Library
 Conpig is a green threading library using green threads from [Gevent](http://www.gevent.org/intro.html)
 which are based on [greenlets](https://pypi.python.org/pypi/greenlet).
 along side a signal based scheduler.
-This allows one true concurrency despite CPython's GIL using green threads instead of OS processes or OS threads such that spawning a new thread is still cheap.
+This allows one true concurrency using green threads instead of OS processes or OS threads such that spawning a new thread is still cheap.
 
 Want
 ----
