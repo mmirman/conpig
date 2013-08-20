@@ -69,6 +69,12 @@ conpig.spawn(test, "O")
 conpig.wait_all()
 ```
 
+Authors
+-------
+
+* Matthew Mirman
+
+* Eric Faust
 
 License
 -------
